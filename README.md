@@ -2,6 +2,8 @@
 
 [Slides](https://multinear.github.io/deck-text2sql)
 
+---
+
 Powered by [Slidev](https://github.com/slidevjs/slidev)
 
 To start the local slide show:
