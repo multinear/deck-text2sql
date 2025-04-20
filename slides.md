@@ -32,7 +32,7 @@ Building Reliable Solutions with LLMs
   </button> -->
   <a href="https://multinear.com" target="_blank" class="slidev-icon-btn">
     <div style="display: inline-flex; align-items: center; justify-content: center; width: 1.1em; height: 1.1em; border-radius: 50%; background-color: white; vertical-align: middle;">
-      <object type="image/svg+xml" data="./assets/logo.svg" style="width: 0.8em; height: 0.8em; display: block; pointer-events: none;"></object>
+      <img src="./assets/logo.svg" style="width: 0.8em; height: 0.8em; display: block; pointer-events: none;"></img>
     </div>
   </a>
   <a href="https://github.com/multinear-demo/demo-windforest-vanilla-py" target="_blank" class="slidev-icon-btn">
