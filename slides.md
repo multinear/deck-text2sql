@@ -148,11 +148,11 @@ transition: slide-up
 |                   |                   |                   |
 | ----------------- | ----------------- | ----------------- |
 |                   | **Business app**  | **Enterprise data‑lake** |
-| <span style="color: #00007F">Focus</span> | <span v-mark="{ at: 0, color: 'red', type: 'underline' }">Reliability</span> over coverage | <span v-mark="{ at: 0, color: 'green', type: 'underline' }">Coverage & speed</span> over accuracy |
+| <span style="color: #00007F">Success Criteria</span> | <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Reliability</span> over coverage | <span v-mark="{ at: 1, color: 'green', type: 'underline' }">Coverage & speed</span> over accuracy |
 | <span style="color: #00007F">Typical User</span> | Business user | Data analyst, developer, PM |
 | <span style="color: #00007F">Tables</span>      | 10‑50          | 1000+              |
-| <span style="color: #00007F">Accuracy</span>    | 95 %+ required | 70‑80 % acceptable |
-| <span style="color: #00007F">Consistency</span>    | Very important | Not so important |
+| <span style="color: #00007F">Accuracy</span>    | <span v-mark="{ at: 1, color: 'red', type: 'circle' }">95 %+</span> required | 70‑80 % acceptable |
+| <span style="color: #00007F">Consistency</span>    | <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Very important</span> | Not so important |
 
 <div style="padding-top: 3em; text-align: center;">
     <b>More Use Cases</b>: 🔸 Client-facing app 🔸 Internal business logic
@@ -255,17 +255,141 @@ flowchart LR
 transition: slide-up
 ---
 
-# 🔄 Consistency
+# 🔄 Inconsistency: Same Q, Different Answers
+##
 
+<div style="font-size: 0.7em;">
+User Question: <b>"Last year sales, by quarter"</b>
+</div>
+
+<div grid="~ cols-3 gap-4" style="font-size: 0.7em;">
+
+<div>
+
+**Variant A**
+
+```sql
+SELECT 
+  EXTRACT(QUARTER FROM order_date) AS quarter, 
+  SUM(total) AS sales
+FROM orders
+WHERE EXTRACT(YEAR FROM order_date) = 2023
+GROUP BY quarter;
+```
+
+| quarter | sales  |
+|---------|--------|
+| 1       | 12,500 |
+| 2       | 10,400 |
+
+</div>
+
+<div>
+
+**Variant B**
+
+```sql
+SELECT 
+  CONCAT('Q', EXTRACT(QUARTER FROM order_date)) AS Quarter, 
+  ROUND(SUM(total), 0) AS TotalSales
+FROM orders
+WHERE YEAR(order_date) = YEAR(CURDATE()) - 1
+GROUP BY Quarter;
+```
+
+| <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Quarter</span> | <span v-mark="{ at: 1, color: 'red', type: 'underline' }">TotalSales</span> |
+|---------|------------|
+| <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Q1</span>      | 12,500     |
+| <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Q2</span>      | 10,400     |
+
+</div>
+
+<div>
+
+
+**Variant C**
+
+```sql
+SELECT 
+  CONCAT(EXTRACT(YEAR FROM order_date), '-Q', EXTRACT(QUARTER FROM order_date)) AS period, 
+  FORMAT(SUM(total), 2) AS total_amount
+FROM orders
+WHERE order_date BETWEEN '2023-01-01' AND '2023-12-31'
+GROUP BY period;
+```
+
+| <span v-mark="{ at: 1, color: 'orange', type: 'underline' }">period</span>   | <span v-mark="{ at: 1, color: 'orange', type: 'underline' }">total_amount</span> |
+|----------|--------------|
+| <span v-mark="{ at: 1, color: 'orange', type: 'underline' }">2023-Q1</span>  | <span v-mark="{ at: 1, color: 'orange', type: 'underline' }">12,500.00</span>    |
+| <span v-mark="{ at: 1, color: 'orange', type: 'underline' }">2023-Q2</span>  | <span v-mark="{ at: 1, color: 'orange', type: 'underline' }">10,400.00</span>    |
+
+</div>
+
+</div>
+
+<style>
+    pre {
+        font-size: 0.6em !important;
+    }
+</style>
 
 ---
 transition: slide-up
 ---
 
-# 🔍 Eval-driven development
-Iterative process
+# Accuracy
 
-.
+- timeframe
+- all sales vs all my sales
+- sales: net vs gross, booked vs paid
+
+---
+transition: slide-up
+---
+
+# Observations
+Across multiple projects
+
+<div style="padding-top: 0.5em">
+
+🔹 **Large context windows** are not helping much
+
+<div style="padding-left: 1.3em; font-style: italic;">
+    More information = more noise, requires more thinking = more mistakes
+</div>
+
+🔹 **Fine-tuning** helps a little, but requires a lot of time and resources
+
+<div style="padding-left: 1.3em; font-style: italic;">
+    Models already know SQL, teaching them new knowledge is hard
+</div>
+
+🔹 <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Critical</span>: **Fast Experimentation**
+
+<div style="padding-left: 1.3em; font-style: italic;">
+    Fast feedback loop allows rapid development
+</div>
+
+🔹 <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Critical</span>: **Evaluations**
+
+<div style="padding-left: 1.3em; font-style: italic;">
+    Evaluations are the only way to know if the solution is doing what it's supposed to
+</div>
+
+</div>
+
+---
+transition: slide-up
+---
+
+# 🔎 Eval-driven development
+##
+
+- Experimentation: this is the way
+- Iterative process
+
+<br/>
+
 
 ```mermaid {scale: 0.8}
 graph LR
@@ -307,36 +431,50 @@ graph LR
 transition: slide-up
 ---
 
-# Observations
-Across multiple projects
+# ⚙️ Development Workflow
+##
 
-<div style="padding-top: 0.5em">
+- Start with a goal
+- Reverse engineer evals
+- Experiment iterations
+- Benchmark at the end
 
-🔹 **Large context windows** are not helping much
+```mermaid {scale: 0.9}
+graph LR
+  style DG fill:#F6FFED,stroke:#B7EB8F,stroke-width:2px,rx:10,ry:10
+  style DP fill:#FFFBE6,stroke:#FFE58F,stroke-width:2px,rx:10,ry:10
+  style RE fill:#F0F5FF,stroke:#ADC6FF,stroke-width:2px,rx:10,ry:10
+  style EV fill:#FFFBE6,stroke:#FFE58F,stroke-width:2px,rx:10,ry:10
+  style AN fill:#FFF1F0,stroke:#FFCCC7,stroke-width:2px,rx:10,ry:10
+  style IM fill:#F6FFED,stroke:#B7EB8F,stroke-width:2px,rx:10,ry:10
+  style BM fill:#F0F5FF,stroke:#ADC6FF,stroke-width:2px,rx:10,ry:10
+  style PR fill:#F6FFED,stroke:#B7EB8F,stroke-width:2px,rx:10,ry:10
 
-<div style="padding-left: 1.3em; font-style: italic;">
-    More information = more noise, requires more thinking = more mistakes
-</div>
+  DG([Define the Goal]) --> DP([POC]);
+  DP --> RE(["Evals v1"]);
 
-🔹 **Fine-tuning** helps a little, but requires a lot of time and resources
+  subgraph IT [Iterate]
+    direction LR
+    EV([Evaluate]) --> AN([Analyze]);
+    AN --> IM([Improve]);
+    IM --> EV;
+  end
 
-<div style="padding-left: 1.3em; font-style: italic;">
-    Models already know SQL, teaching them new knowledge is hard
-</div>
+  RE --> IT;
+  EV --> BM([Benchmark]);
+  BM --> PR([Production]);
+```
+<!-- Describes the overall development lifecycle -->
 
-🔹 <span v-mark="{ at: 0, color: 'red', type: 'underline' }">Critical</span>: **Fast Experimentation**
+---
 
-<div style="padding-left: 1.3em; font-style: italic;">
-    Fast feedback loop allows rapid development
-</div>
+# How to Evaluate
 
-🔹 <span v-mark="{ at: 0, color: 'red', type: 'underline' }">Critical</span>: **Evaluations**
+- LLM-as-a-judge
+- Query mock DB
+- Advanced: https://arxiv.org/abs/2312.10321
 
-<div style="padding-left: 1.3em; font-style: italic;">
-    Evaluations are the only way to know if the solution is doing what it's supposed to
-</div>
-
-</div>
+<!-- - -->
 
 ---
 
@@ -365,18 +503,35 @@ Across multiple projects
 
 # Takeaways
 
-1. Pinpoint *your* success criteria first
-<!-- 2. Use Mini‑RAG – fewer, better examples
-3. Split tasks so the model thinks less
-4. Invest in evals early; they pay daily
-5. Model swap is easy *after* #4 -->
+1. 💡 Pinpoint *your* success criteria first
+2. ⚙️ Develop POC
+3. 🔎 Build evals
+4. 🚀 Iterate
+5. 📈 Production with confidence (benchmarks)
+
+---
+
+# 📚 Resources
+## &nbsp;
+
+- [Multinear Site](https://multinear.com)
+- [Multinear Platform](https://github.com/multinear/multinear)
+- [Uber Text-to-SQL](https://www.uber.com/en-GB/blog/query-gpt/)
+- [LinkedIn Text-to-SQL](https://www.linkedin.com/blog/engineering/ai/practical-text-to-sql-for-data-analytics)
+- [Eugene Yan on evals](https://eugeneyan.com/tag/eval/)
+- [Hamel Husain on evals](https://hamel.dev)
+- [Lenny Rachitsky episode on evals](https://x.com/lennysan/status/1909636749103599729)
 
 ---
 
 ## What's next?
 
-- Grab the starter kit ➜ ...
-- Register for the deep‑dive workshop
+- Register for the deep-dive workshop
 - Connect with us on LinkedIn / X
 
+Use Multinear
+
+<img src="./assets/multinear.png" style="width: 20em"></img>
+
 Thanks!
+
