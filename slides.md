@@ -56,7 +56,7 @@ transition: slide-left
 # 💡 Meet the Team
 
 <div grid="~ cols-2 gap-4">
-<div style="padding-top: 1em">
+<div style="padding-top: 2em">
 
 👤 **Dima Kuchin**
 
@@ -67,7 +67,7 @@ transition: slide-left
 - [LinkedIn @kuchin](https://www.linkedin.com/in/kuchin), [X @kuchin](https://x.com/kuchin)
 
 </div>
-<div style="padding-top: 1em">
+<div style="padding-top: 2em">
 
 👤 **Asaf Bord**
 
@@ -166,9 +166,11 @@ transition: slide-up
 
 # 📊 Business App Text-to-SQL
 
-**Role**: A business analyst replacement.
+## Role: A business analyst replacement
 
-**Goal**: Reliability. 
+**Primary Goal**: Reliability
+
+<div style="padding-top: 0.1em;">
 
 A combination of:
 
@@ -178,6 +180,8 @@ A combination of:
 - 🤔 **Ambiguity Handling**: Clarify unclear requests—prevent "garbage in, garbage out"
 - 📊 **Presentation**: Choose between tables and charts, picking the best visualization method
 - 🔒 **Guardrails**: Enforce access control, prevent prompt injection
+
+</div>
 
 <div style="padding-top: 2em; text-align: center;">
     ⭐ Ensuring analyst-level trust & quality ⭐
@@ -193,6 +197,8 @@ transition: fade-out
 
 Decompose the solution into smaller steps.
 
+<br><br>
+
 ```mermaid
 flowchart LR
   style A fill:#E6F7FF,stroke:#91D5FF,stroke-width:2px
@@ -207,7 +213,7 @@ flowchart LR
   A{{Question}} --> B2(Security);
   B1 --> C(((Build Query)));
   B2 --> C(((Build Query)));
-  B2 -.-> F(Stop);
+  B2 -- "&nbsp;Alert ⚠️&nbsp;" --> F(((Stop)));
   C --> D(Execute);
   D --> E(Presentation);
   B1 -.-> A;
@@ -245,7 +251,7 @@ flowchart LR
 
   B1 --> C;
   B2 --> C;
-  B2 -.-> F(Stop);
+  B2 -- "&nbsp;Alert ⚠️&nbsp;" --> F(((Stop)));
   C --> D(Execute);
   D --> E(Presentation);
   B1 -.-> A;
@@ -347,10 +353,10 @@ transition: slide-up
 transition: slide-up
 ---
 
-# Observations
+# 👀 Observations
 Across multiple projects
 
-<div style="padding-top: 0.5em">
+<div style="font-size: 0.85em;">
 
 🔹 **Large context windows** are not helping much
 
@@ -362,6 +368,12 @@ Across multiple projects
 
 <div style="padding-left: 1.3em; font-style: italic;">
     Models already know SQL, teaching them new knowledge is hard
+</div>
+
+🔹 <span v-mark="{ at: 1, color: 'green', type: 'underline' }">**Best approach**</span>: a combination of instructions and examples
+
+<div style="padding-left: 1.3em; font-style: italic;">
+    Instructions are the <b>what</b>, examples are the <b>how</b>
 </div>
 
 🔹 <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Critical</span>: **Fast Experimentation**
@@ -382,13 +394,19 @@ Across multiple projects
 transition: slide-up
 ---
 
+# 🧩 Examples
+
+---
+transition: slide-up
+---
+
 # 🔎 Eval-driven development
 ##
 
 - Experimentation: this is the way
 - Iterative process
 
-<br/>
+<br><br>
 
 
 ```mermaid {scale: 0.8}
@@ -439,6 +457,8 @@ transition: slide-up
 - Experiment iterations
 - Benchmark at the end
 
+<br>
+
 ```mermaid {scale: 0.9}
 graph LR
   style DG fill:#F6FFED,stroke:#B7EB8F,stroke-width:2px,rx:10,ry:10
@@ -468,13 +488,55 @@ graph LR
 
 ---
 
-# How to Evaluate
+# ⚖️ How to Evaluate
+## LLM-as-a-judge
 
-- LLM-as-a-judge
-- Query mock DB
-- Advanced: https://arxiv.org/abs/2312.10321
+<div style="font-size: 0.8em; padding-top: 1em;">
 
-<!-- - -->
+**LLM Prompt:**
+
+```markdown
+Given the following
+Database schema:     <DB_SCHEMA>
+User question:       <USER_QUESTION>
+Expected SQL query:  <EXPECTED_SQL>
+Generated SQL query: <GENERATED_SQL>
+
+Do the "Generated SQL query" and the "Expected SQL query" produce
+the same results for the given user question and DB schema?
+```
+
+**Expected Output:**
+
+- **Answer:** True / False
+- **Reasoning:** Brief explanation comparing the queries
+
+</div>
+
+<style>
+    pre {
+        font-size: 0.8em !important;
+    }
+</style>
+
+---
+
+# ⚖️ How to Evaluate
+## Query mock DB
+
+<br>
+
+- Generate mock database that matches the schema
+- Run Text-to-SQL on the user question, get new SQL query
+- Run both expected SQL and generated SQL at the mock DB
+- Compare results ✅
+
+---
+
+# ⚖️ How to Evaluate
+## Advanced 
+
+https://arxiv.org/abs/2312.10321
 
 ---
 
@@ -501,18 +563,53 @@ graph LR
 
 ---
 
+# 🤖 AI Agents
+##
+**Agents are simple**
+
+<div style="text-align: center; margin-top: -3em"> 
+
+```mermaid {scale: 0.85}
+graph TB
+  style GQ fill:#E6F7FF,stroke:#91D5FF,stroke-width:2px,rx:10,ry:10
+  style GS fill:#FFFBE6,stroke:#FFE58F,stroke-width:2px,rx:10,ry:10
+  style ES fill:#F0F5FF,stroke:#ADC6FF,stroke-width:2px,rx:10,ry:10
+  style AR fill:#F6FFED,stroke:#B7EB8F,stroke-width:2px,rx:10,ry:10
+  style IM fill:#FCF4E0,stroke:#FFD666,stroke-width:2px,rx:10,ry:10
+  style Stop fill:#F6FFED,stroke:#B7EB8F,stroke-width:2px,rx:10,ry:10
+
+  GQ{{Question}} --> Loop;
+
+  subgraph Loop [Agent Loop]
+    direction LR
+    GS(Generate SQL) --> ES([Execute SQL]);
+    ES --> AR([Analyze Results]);
+    AR -- "&nbsp;Unhappy 🚫&nbsp;" --> IM([Improve]);
+    IM --> GS;
+  end
+
+  AR -- "&nbsp;Good ✅&nbsp;" --> Stop(((Done)));
+```
+
+</div>
+
+---
+
 # Takeaways
 
-1. 💡 Pinpoint *your* success criteria first
-2. ⚙️ Develop POC
-3. 🔎 Build evals
-4. 🚀 Iterate
-5. 📈 Production with confidence (benchmarks)
+<br>
+
+1. ⭐ Pinpoint *your* success criteria first
+2. 🤔 Make LLM think less, not more
+3. 🔎 Reverse engineer evals
+4. 📈 Experiment, iterate, benchmark
+5. 🚀 Production with confidence
 
 ---
 
 # 📚 Resources
-## &nbsp;
+
+<br>
 
 - [Multinear Site](https://multinear.com)
 - [Multinear Platform](https://github.com/multinear/multinear)
@@ -526,8 +623,13 @@ graph LR
 
 ## What's next?
 
+<br>
+
 - Register for the deep-dive workshop
-- Connect with us on LinkedIn / X
+- Follow us on LinkedIn / X
+- Subscribe to the newsletter
+
+<br>
 
 Use Multinear
 
