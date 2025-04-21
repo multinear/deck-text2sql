@@ -128,7 +128,7 @@ transition: slide-up
 
 # 🤖 Text-to-SQL top challenges
 
-Something something something
+Most common issues
 
 |                                |                                |
 | ------------------------------ | ------------------------------ |
@@ -195,7 +195,7 @@ transition: fade-out
 
 # Make LLM think less, not more
 
-Decompose the solution into smaller steps.
+Decompose the solution into smaller steps
 
 <br><br>
 
@@ -225,7 +225,7 @@ transition: slide-up
 
 # Make LLM think less, not more
 
-Decompose query builder.
+Decompose query builder
 
 ```mermaid {scale: 0.8}
 flowchart LR
@@ -261,14 +261,57 @@ flowchart LR
 transition: slide-up
 ---
 
+# 🤖 AI Agents
+##
+
+<br>
+
+**Agents are easy**
+
+- Work better
+- But not as reliable
+- Slow and hard to improve
+
+<div style="text-align: center; margin-top: -11em"> 
+
+```mermaid {scale: 0.85}
+graph TB
+  style GQ fill:#E6F7FF,stroke:#91D5FF,stroke-width:2px,rx:10,ry:10
+  style GS fill:#FFFBE6,stroke:#FFE58F,stroke-width:2px,rx:10,ry:10
+  style ES fill:#F0F5FF,stroke:#ADC6FF,stroke-width:2px,rx:10,ry:10
+  style AR fill:#F6FFED,stroke:#B7EB8F,stroke-width:2px,rx:10,ry:10
+  style IM fill:#FCF4E0,stroke:#FFD666,stroke-width:2px,rx:10,ry:10
+  style Stop fill:#F6FFED,stroke:#B7EB8F,stroke-width:2px,rx:10,ry:10
+
+  GQ{{Question}} --> Loop;
+
+  subgraph Loop [Agent Loop]
+    direction LR
+    GS(Generate SQL) --> ES([Execute SQL]);
+    ES --> AR([Analyze Results]);
+    AR -- "&nbsp;Unhappy 🚫&nbsp;" --> IM([Improve]);
+    IM --> GS;
+  end
+
+  AR -- "&nbsp;Good ✅&nbsp;" --> Stop(((Done)));
+```
+
+</div>
+
+---
+transition: slide-up
+---
+
 # 🔄 Inconsistency: Same Q, Different Answers
 ##
 
-<div style="font-size: 0.7em;">
+<div style="font-size: 0.8em; padding-top: 1em;">
 User Question: <b>"Last year sales, by quarter"</b>
 </div>
 
-<div grid="~ cols-3 gap-4" style="font-size: 0.7em;">
+<br>
+
+<div grid="~ cols-3 gap-6" style="font-size: 0.7em;">
 
 <div>
 
@@ -282,6 +325,8 @@ FROM orders
 WHERE EXTRACT(YEAR FROM order_date) = 2023
 GROUP BY quarter;
 ```
+
+<br>
 
 | quarter | sales  |
 |---------|--------|
@@ -302,6 +347,8 @@ FROM orders
 WHERE YEAR(order_date) = YEAR(CURDATE()) - 1
 GROUP BY Quarter;
 ```
+
+<br>
 
 | <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Quarter</span> | <span v-mark="{ at: 1, color: 'red', type: 'underline' }">TotalSales</span> |
 |---------|------------|
@@ -324,6 +371,8 @@ WHERE order_date BETWEEN '2023-01-01' AND '2023-12-31'
 GROUP BY period;
 ```
 
+<br>
+
 | <span v-mark="{ at: 1, color: 'orange', type: 'underline' }">period</span>   | <span v-mark="{ at: 1, color: 'orange', type: 'underline' }">total_amount</span> |
 |----------|--------------|
 | <span v-mark="{ at: 1, color: 'orange', type: 'underline' }">2023-Q1</span>  | <span v-mark="{ at: 1, color: 'orange', type: 'underline' }">12,500.00</span>    |
@@ -335,7 +384,7 @@ GROUP BY period;
 
 <style>
     pre {
-        font-size: 0.6em !important;
+        font-size: 0.7em !important;
     }
 </style>
 
@@ -343,11 +392,72 @@ GROUP BY period;
 transition: slide-up
 ---
 
-# Accuracy
+# 🎯 Accuracy: Same Q, Wrong Results
+##
 
-- timeframe
-- all sales vs all my sales
-- sales: net vs gross, booked vs paid
+<div style="font-size: 0.8em; margin-bottom: 1em; padding-top: 1em;">
+User Question: <b>What's our sales total for March 2024?</b>
+
+<div grid="~ cols-2 gap-4" style="font-size: 0.9em; padding-top: 2em;">
+
+<div>
+
+**Variant A** 
+
+- Gross sales
+- Invoice date
+
+<br>
+
+```sql
+SELECT SUM(total_amount) AS march_sales
+FROM invoices
+WHERE invoice_date BETWEEN '2024-03-01'
+  AND '2024-03-31';
+```
+
+**Result:**
+
+```md
+**march_sales**: $125,000
+```
+
+</div>
+
+<div>
+
+**Variant B** 
+
+- Net sales
+- Payment date
+
+<br>
+
+```sql
+SELECT SUM(total_amount - returns - discounts) AS total_sales
+FROM invoices
+WHERE payment_date >= '2024-03-01' -- Uses actual payment date
+  AND payment_date < '2024-03-31'; -- Doesn't include 31st
+```
+
+**Result:**
+
+```md
+**total_sales**: $89,500
+```
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+    pre {
+        font-size: 0.75em !important;
+        margin-top: 0.5em;
+    }
+</style>
 
 ---
 transition: slide-up
@@ -356,35 +466,35 @@ transition: slide-up
 # 👀 Observations
 Across multiple projects
 
-<div style="font-size: 0.85em;">
+<div style="font-size: 0.9em; margin-top: 2em;">
 
 🔹 **Large context windows** are not helping much
 
-<div style="padding-left: 1.3em; font-style: italic;">
+<div style="padding-left: 1.3em; margin-top: -0.5em; font-style: italic;">
     More information = more noise, requires more thinking = more mistakes
 </div>
 
 🔹 **Fine-tuning** helps a little, but requires a lot of time and resources
 
-<div style="padding-left: 1.3em; font-style: italic;">
+<div style="padding-left: 1.3em; margin-top: -0.5em; font-style: italic;">
     Models already know SQL, teaching them new knowledge is hard
 </div>
 
 🔹 <span v-mark="{ at: 1, color: 'green', type: 'underline' }">**Best approach**</span>: a combination of instructions and examples
 
-<div style="padding-left: 1.3em; font-style: italic;">
+<div style="padding-left: 1.3em; margin-top: -0.5em; font-style: italic;">
     Instructions are the <b>what</b>, examples are the <b>how</b>
 </div>
 
 🔹 <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Critical</span>: **Fast Experimentation**
 
-<div style="padding-left: 1.3em; font-style: italic;">
+<div style="padding-left: 1.3em; margin-top: -0.5em; font-style: italic;">
     Fast feedback loop allows rapid development
 </div>
 
 🔹 <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Critical</span>: **Evaluations**
 
-<div style="padding-left: 1.3em; font-style: italic;">
+<div style="padding-left: 1.3em; margin-top: -0.5em; font-style: italic;">
     Evaluations are the only way to know if the solution is doing what it's supposed to
 </div>
 
@@ -395,6 +505,104 @@ transition: slide-up
 ---
 
 # 🧩 Examples
+
+<div grid="~ cols-2 gap-4" style="font-size: 0.7em; line-height: 1.3;">
+
+<div>
+
+- **Q:** _"List all products with inventory below their reorder point."_  <span style="color: gray;">(Inventory)</span>
+
+```sql
+SELECT product_id, product_name, current_stock, reorder_point
+FROM products
+WHERE current_stock < reorder_point
+ORDER BY current_stock ASC;
+```
+<br>
+
+- **Q:** _"What was total sales revenue by sales rep last quarter?"_  <span style="color: gray;">(Sales Reporting)</span>
+
+```sql
+SELECT sales_rep_id, sales_rep_name, SUM(order_total) AS total_revenue
+FROM sales_orders
+WHERE order_date BETWEEN '2024-01-01' AND '2024-03-31'
+GROUP BY sales_rep_id, sales_rep_name
+ORDER BY total_revenue DESC;
+```
+
+<br>
+
+- **Q:** _"All customers who haven't placed an order in the last 6 months."_  <span style="color: gray;">(Customer Segmentation)</span>
+
+```sql
+SELECT customer_id, customer_name, last_order_date
+FROM customers
+WHERE last_order_date < CURRENT_DATE - INTERVAL '6 months'
+ORDER BY last_order_date ASC;
+```
+
+</div>
+
+<div>
+
+- **Q:** _"Which invoices are overdue by more than 30 days?"_  <span style="color: gray;">(Accounts Receivable)</span>
+
+```sql
+SELECT invoice_id, customer_id, invoice_date, due_date, total_amount
+FROM invoices
+WHERE payment_status = 'Unpaid'
+  AND due_date < CURRENT_DATE - INTERVAL '30 days'
+ORDER BY due_date ASC;
+```
+
+<br>
+
+- **Q:** _"Show me all open POs awaiting vendor delivery."_  <span style="color: gray;">(Procurement)</span>
+
+```sql
+SELECT purchase_order_id, vendor_name, order_date, expected_delivery_date
+FROM purchase_orders
+WHERE status = 'Open'
+ORDER BY expected_delivery_date ASC;
+```
+
+<br>
+
+- **Q:** _"Highest profit margin categories last year?"_  <span style="color: gray;">(Profitability Analysis)</span>
+
+```sql
+SELECT category_id, category_name, SUM(revenue - cost) / SUM(revenue) AS profit_margin
+FROM product_sales
+WHERE sale_date BETWEEN '2023-01-01' AND '2023-12-31'
+GROUP BY category_id, category_name
+ORDER BY profit_margin DESC;
+```
+
+</div>
+
+</div>
+
+<style>
+pre {
+  font-size: 0.7em !important; /* Smaller font for examples */
+  margin-top: 0.3em;
+  line-height: 1.2;
+}
+.slidev-page > div > div h3 {
+    margin-bottom: 0.2em;
+}
+.slidev-page > div > div ul {
+    margin-top: 0.2em;
+}
+</style>
+
+---
+transition: slide-up
+---
+
+# ⚒️ How to Make Examples
+
+## TBD
 
 ---
 transition: slide-up
@@ -487,9 +695,31 @@ graph LR
 <!-- Describes the overall development lifecycle -->
 
 ---
+transition: fade-out
+---
 
 # ⚖️ How to Evaluate
-## LLM-as-a-judge
+
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1em; padding-top: 1em;">
+
+<div>
+
+#### Naive Approach
+
+<div style="font-size: 0.8em; padding-top: 1em;">
+
+<br>
+
+- Normalize both queries
+- Compare strings
+
+</div>
+
+</div>
+
+<div>
+
+#### LLM-as-a-judge
 
 <div style="font-size: 0.8em; padding-top: 1em;">
 
@@ -512,6 +742,8 @@ the same results for the given user question and DB schema?
 - **Reasoning:** Brief explanation comparing the queries
 
 </div>
+</div>
+</div>
 
 <style>
     pre {
@@ -522,76 +754,34 @@ the same results for the given user question and DB schema?
 ---
 
 # ⚖️ How to Evaluate
-## Query mock DB
 
 <br>
 
-- Generate mock database that matches the schema
+### Query mock DB
+
+<br>
+
+- Generate mock database that matches the production schema
+- Fill it with realistic synthetic data <span style="color: gray;">(or anonymize production data)</span>
 - Run Text-to-SQL on the user question, get new SQL query
 - Run both expected SQL and generated SQL at the mock DB
 - Compare results ✅
 
 ---
 
-# ⚖️ How to Evaluate
-## Advanced 
+# ⚒️ How to Make Mock Database
 
-https://arxiv.org/abs/2312.10321
+## TBD
 
----
-
-# How to Make Evals
-
-<!-- - Mock data lets you know the *answer* ahead of time
-- Benchmarks catch regressions in minutes, not days
-- Enables safe model swaps (OpenAI ↔︎ Gemini ↔︎ DeepSeek) -->
+https://github.com/multinear-demo/demo-windforest-vanilla-py
 
 ---
 
 # Multinear Platform
 
----
+## TBD
 
-# Demo (5 min)
-
-<!-- 1. Ambiguity check ➜ follow‑up
-2. Mini‑RAG example retrieval
-3. SQL generation & execution
-4. Eval score prints green
-
-*(recorded GIF plays automatically)* -->
-
----
-
-# 🤖 AI Agents
-##
-**Agents are simple**
-
-<div style="text-align: center; margin-top: -3em"> 
-
-```mermaid {scale: 0.85}
-graph TB
-  style GQ fill:#E6F7FF,stroke:#91D5FF,stroke-width:2px,rx:10,ry:10
-  style GS fill:#FFFBE6,stroke:#FFE58F,stroke-width:2px,rx:10,ry:10
-  style ES fill:#F0F5FF,stroke:#ADC6FF,stroke-width:2px,rx:10,ry:10
-  style AR fill:#F6FFED,stroke:#B7EB8F,stroke-width:2px,rx:10,ry:10
-  style IM fill:#FCF4E0,stroke:#FFD666,stroke-width:2px,rx:10,ry:10
-  style Stop fill:#F6FFED,stroke:#B7EB8F,stroke-width:2px,rx:10,ry:10
-
-  GQ{{Question}} --> Loop;
-
-  subgraph Loop [Agent Loop]
-    direction LR
-    GS(Generate SQL) --> ES([Execute SQL]);
-    ES --> AR([Analyze Results]);
-    AR -- "&nbsp;Unhappy 🚫&nbsp;" --> IM([Improve]);
-    IM --> GS;
-  end
-
-  AR -- "&nbsp;Good ✅&nbsp;" --> Stop(((Done)));
-```
-
-</div>
+https://github.com/multinear/multinear
 
 ---
 
