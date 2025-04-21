@@ -18,6 +18,8 @@ transition: slide-left
 mdc: true
 ---
 
+<div style="text-shadow: 2px 2px 4px #000;">
+
 # Text-to-SQL
 
 Building Reliable Solutions with LLMs
@@ -31,13 +33,15 @@ Building Reliable Solutions with LLMs
     <carbon:edit />
   </button> -->
   <a href="https://multinear.com" target="_blank" class="slidev-icon-btn">
-    <div style="display: inline-flex; align-items: center; justify-content: center; width: 1.1em; height: 1.1em; border-radius: 50%; background-color: white; vertical-align: middle;">
-      <img src="./assets/logo.svg" style="width: 0.8em; height: 0.8em; display: block; pointer-events: none;"></img>
+    <div style="display: inline-flex; align-items: center; justify-content: center; width: 1.6em; height: 1.6em; border-radius: 50%; background-color: white; vertical-align: middle;">
+      <img src="./assets/logo.svg" style="width: 1.3em; height: 1.3em; display: block; pointer-events: none;"></img>
     </div>
   </a>
   <a href="https://github.com/multinear-demo/demo-windforest-vanilla-py" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
+    <carbon:logo-github style="width: 1.8em; height: 1.8em;" />
   </a>
+</div>
+
 </div>
 
 <!--
@@ -666,7 +670,7 @@ transition: slide-up
 
 - Start with a goal
 - Reverse engineer evals
-- Experiment iterations
+- Experiment iterations <span style="color: gray;">(code, instructions, context, examples, model, ...)</span>
 - Benchmark at the end
 
 ```mermaid {scale: 0.9}
