@@ -60,7 +60,7 @@ transition: slide-left
 
 👤 **Dima Kuchin**
 
-- Co-founder at Multinear  
+- Co-founder at Multinear <img src="./assets/logo.svg" style="width: 1.5em; height: 1.5em; display: inline-block; margin-top: -0.2em; margin-left: 0.2em;"></img>
 - Engineering leader
 - Passionate about building reliable AI solutions
 - Multiple AI projects from POC to production  
@@ -71,7 +71,7 @@ transition: slide-left
 
 👤 **Asaf Bord**
 
-- Co-founder at Multinear  
+- Co-founder at Multinear <img src="./assets/logo.svg" style="width: 1.5em; height: 1.5em; display: inline-block; margin-top: -0.2em; margin-left: 0.2em;"></img>
 - Product leader
 - Specializes in AI product strategy
 - Numerous AI projects in production
@@ -152,7 +152,7 @@ transition: slide-up
 | <span style="color: #00007F">Typical User</span> | Business user | Data analyst, developer, PM |
 | <span style="color: #00007F">Tables</span>      | 10‑50          | 1000+              |
 | <span style="color: #00007F">Accuracy</span>    | <span v-mark="{ at: 1, color: 'red', type: 'circle' }">95 %+</span> required | 70‑80 % acceptable |
-| <span style="color: #00007F">Consistency</span>    | <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Very important</span> | Not so important |
+| <span style="color: #00007F">Consistency</span>    | <span v-mark="{ at: 1, color: 'red', type: 'underline' }">Very important</span> | Not so important for data exploration |
 
 <div style="padding-top: 3em; text-align: center;">
     <b>More Use Cases</b>: 🔸 Client-facing app 🔸 Internal business logic
@@ -611,10 +611,12 @@ transition: slide-up
 # 🔎 Eval-driven development
 ##
 
+<br>
+
 - Experimentation: this is the way
 - Iterative process
 
-<br><br>
+<br>
 
 
 ```mermaid {scale: 0.8}
@@ -660,12 +662,12 @@ transition: slide-up
 # ⚙️ Development Workflow
 ##
 
+<br>
+
 - Start with a goal
 - Reverse engineer evals
 - Experiment iterations
 - Benchmark at the end
-
-<br>
 
 ```mermaid {scale: 0.9}
 graph LR
@@ -791,9 +793,19 @@ https://github.com/multinear/multinear
 
 1. ⭐ Pinpoint *your* success criteria first
 2. 🤔 Make LLM think less, not more
-3. 🔎 Reverse engineer evals
+3. 🔎 Reverse engineer examples and evals
 4. 📈 Experiment, iterate, benchmark
 5. 🚀 Production with confidence
+
+<style>
+    div {
+        font-size: 1.2em;
+    }
+
+    li {
+        line-height: 2.5;
+    }
+</style>
 
 ---
 
@@ -809,21 +821,36 @@ https://github.com/multinear/multinear
 - [Hamel Husain on evals](https://hamel.dev)
 - [Lenny Rachitsky episode on evals](https://x.com/lennysan/status/1909636749103599729)
 
+
+<style>
+    li {
+        line-height: 2;
+    }
+</style>
+
+---
+layout: cover
+background: ./assets/thanks.jpg
 ---
 
-## What's next?
+<div style="text-align: center; text-shadow: 2px 2px 4px #000;">
 
 <br>
 
-- Register for the deep-dive workshop
-- Follow us on LinkedIn / X
-- Subscribe to the newsletter
+## Thanks!
 
 <br>
 
-Use Multinear
+🔸 Register for deep-dive workshop
 
-<img src="./assets/multinear.png" style="width: 20em"></img>
+🔸 Follow us on LinkedIn and X
 
-Thanks!
+🔸 Subscribe to the newsletter
 
+<br>
+
+🔸 Use Multinear
+
+<img src="./assets/multinear.png" style="width: 20em; display: block; margin-left: auto; margin-right: auto;"></img>
+
+</div>
