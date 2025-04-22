@@ -837,10 +837,52 @@ the same results for the given user question and DB schema?
 ---
 
 # ⚒️ How to Make Mock Database
+##
 
-## TBD
+**🎯 Goal:** Generate comprehensive data for Text-to-SQL training <br>
+<span style="margin-left: 4.05em;">Create a complete, realistic business environment in code</span>
 
-https://github.com/multinear-demo/demo-windforest-vanilla-py
+<hr>
+
+<div grid="~ cols-2 gap-4" style="font-size: 0.9em;">
+
+<div>
+
+**✅ Features**
+- 📊 10+ Connected Tables
+- 🔗 Complex Relationships
+- 📈 Real Business Patterns
+- ⚠️ Built-in Edge Cases
+
+**🌪️ Realistic Chaos**
+- ☀️ Seasonal Patterns
+- 🌍 Regional Differences
+- ⌨️ Human-like Typos
+- 🕵️ Fraud Attempts
+</div>
+
+<div>
+
+**💡 Idea:** Northwind-inspired DB generator
+
+
+**⏱️ Time:** 3 hours
+
+**💰 Cost:** $5 LLM API
+
+**🧑‍💻 Tech:** 
+
+- Design - OpenAI o1
+- Code - Sonnet 3.5
+- IDE - Cursor
+
+<br>
+
+➡️ [**Open-source on GitHub**](https://github.com/multinear-demo/demo-windforest-vanilla-py)
+
+</div>
+
+</div>
 
 ---
 
@@ -955,6 +997,7 @@ Peace of mind
 
 - [Multinear Site](https://multinear.com) <img src="./assets/logo.svg" style="width: 1.5em; height: 1.5em; display: inline-block; margin-top: -0.2em; margin-left: 0.2em;"></img>
 - [Multinear Platform](https://github.com/multinear/multinear)
+- [Demo: Windforest](https://github.com/multinear-demo/demo-windforest-vanilla-py)
 - [Uber Text-to-SQL](https://www.uber.com/en-GB/blog/query-gpt/)
 - [LinkedIn Text-to-SQL](https://www.linkedin.com/blog/engineering/ai/practical-text-to-sql-for-data-analytics)
 - [Eugene Yan on evals](https://eugeneyan.com/tag/eval/)
