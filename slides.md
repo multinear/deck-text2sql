@@ -888,9 +888,17 @@ the same results for the given user question and DB schema?
 
 # Multinear Platform
 
-## TBD
+<img src="./assets/windforest2.png" style="width: 25em; display: block; margin-left: auto; margin-right: auto;" />
 
-https://github.com/multinear/multinear
+<!-- https://github.com/multinear/multinear -->
+
+---
+
+# Multinear Platform
+
+<img src="./assets/windforest.png" style="width: 28em; display: block; margin-left: auto; margin-right: auto;" />
+
+<!-- https://github.com/multinear/multinear -->
 
 ---
 
@@ -998,6 +1006,10 @@ Peace of mind
 - [Multinear Site](https://multinear.com) <img src="./assets/logo.svg" style="width: 1.5em; height: 1.5em; display: inline-block; margin-top: -0.2em; margin-left: 0.2em;"></img>
 - [Multinear Platform](https://github.com/multinear/multinear)
 - [Demo: Windforest](https://github.com/multinear-demo/demo-windforest-vanilla-py)
+- [Newsletter: Bag of Tricks](https://bagoftricks.substack.com)
+
+<br>
+
 - [Uber Text-to-SQL](https://www.uber.com/en-GB/blog/query-gpt/)
 - [LinkedIn Text-to-SQL](https://www.linkedin.com/blog/engineering/ai/practical-text-to-sql-for-data-analytics)
 - [Eugene Yan on evals](https://eugeneyan.com/tag/eval/)
@@ -1028,7 +1040,7 @@ background: ./assets/thanks.jpg
 
 🔸 Follow us on LinkedIn and X
 
-🔸 Subscribe to our newsletter
+🔸 Subscribe to [our newsletter](https://bagoftricks.substack.com)
 
 <br>
 
