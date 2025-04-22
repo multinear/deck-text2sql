@@ -606,7 +606,68 @@ transition: slide-up
 
 # ⚒️ How to Make Examples
 
-## TBD
+<br>
+
+### 1. Use real historical data
+
+<br>
+
+### 2. Reverse engineer 🔥
+
+<br>
+
+```markdown
+Our context: <COMPANY_CONTEXT> + <USE_CASE_GOAL>
+
+A) Generate a list of personas
+
+B) Generate a list of topics
+
+C) Given a <PERSONA> and a <TOPIC>,
+   and a few real <EXAMPLES>,
+   generate a list of typical user requests
+```
+
+* Top tier models like **o3**, **o1 Pro** do this easily
+  * Pro tip: <span style="color: darkgreen;">"Ask me the most important questions to help you do this task"</span>
+
+---
+transition: slide-up
+---
+
+# ➡️ Choosing Examples
+
+<br>
+
+### 🚫 Too many examples 
+
+<div style="padding-top: 0.5em">
+
+- More noise, requires more thinking = more mistakes
+
+</div>
+
+<br>
+
+### 🚫 Too few examples
+
+<div style="padding-top: 0.5em">
+
+- Not always relevant = worse results
+
+</div>
+
+<br>
+
+### ✅ Provide top 5-7 examples
+
+<div style="padding-top: 0.5em">
+
+- Generate a pool of examples (100-200)
+- Use RAG-like approach to choose the most relevant ones
+- Model is smart enough to extrapolate from these
+
+</div>
 
 ---
 transition: slide-up
@@ -770,7 +831,7 @@ the same results for the given user question and DB schema?
 - Generate mock database that matches the production schema
 - Fill it with realistic synthetic data <span style="color: gray;">(or anonymize production data)</span>
 - Run Text-to-SQL on the user question, get new SQL query
-- Run both expected SQL and generated SQL at the mock DB
+- Run both `expected SQL` and `generated SQL` at the mock DB
 - Compare results ✅
 
 ---
@@ -791,6 +852,80 @@ https://github.com/multinear/multinear
 
 ---
 
+# 🛡️ Guardrails
+
+Peace of mind
+
+<div grid="~ cols-2 gap-4" style="font-size: 0.8em; line-height: 1.4;">
+
+<div>
+
+<div style="padding-bottom: 1.2em;">
+
+**🎯 Accuracy & Reliability**
+*   Fact-check, explain reasoning, user feedback
+
+</div>
+
+<div style="padding-bottom: 1.2em;">
+
+**🔒 Security**
+*   Access controls, validate input, monitor threats
+
+</div>
+
+<div style="padding-bottom: 1.2em;">
+
+**👤 Privacy**
+*   Anonymize PII, comply with GDPR & HIPAA
+
+</div>
+
+<div style="padding-bottom: 1.2em;">
+
+**🗺️ Scope Definition**
+*   Restrict off-topic requests, define usage policies
+
+</div>
+
+</div>
+
+<div>
+
+<div style="padding-bottom: 1.2em;">
+
+**⚖️ Ethical**
+*   Moderate content, detect bias, align with ethics
+
+</div>
+
+<div style="padding-bottom: 1.2em;">
+
+**⚙️ Technical**
+*   Handle errors, scale performance, optimize latency
+
+</div>
+
+<div style="padding-bottom: 1.2em;">
+
+**📈 Operational**
+*   Monitoring, code versioning, human review
+
+</div>
+
+<div style="padding-bottom: 1.2em;">
+
+**🏛️ Regulatory**
+*   Adhere to regulations, protect IP, ensure accountability
+
+</div>
+
+</div>
+
+</div>
+
+---
+
 # Takeaways
 
 <br>
@@ -798,8 +933,9 @@ https://github.com/multinear/multinear
 1. ⭐ Pinpoint *your* success criteria first
 2. 🤔 Make LLM think less, not more
 3. 🔎 Reverse engineer examples and evals
-4. 📈 Experiment, iterate, benchmark
-5. 🚀 Production with confidence
+4. ✅ Use RAG to choose the most relevant examples
+5. 📈 Experiment, iterate, benchmark
+6. 🚀 Production with confidence
 
 <style>
     div {
@@ -817,7 +953,7 @@ https://github.com/multinear/multinear
 
 <br>
 
-- [Multinear Site](https://multinear.com)
+- [Multinear Site](https://multinear.com) <img src="./assets/logo.svg" style="width: 1.5em; height: 1.5em; display: inline-block; margin-top: -0.2em; margin-left: 0.2em;"></img>
 - [Multinear Platform](https://github.com/multinear/multinear)
 - [Uber Text-to-SQL](https://www.uber.com/en-GB/blog/query-gpt/)
 - [LinkedIn Text-to-SQL](https://www.linkedin.com/blog/engineering/ai/practical-text-to-sql-for-data-analytics)
@@ -845,15 +981,15 @@ background: ./assets/thanks.jpg
 
 <br>
 
-🔸 Register for deep-dive workshop
+🔸 Register for individual workshop
 
 🔸 Follow us on LinkedIn and X
 
-🔸 Subscribe to the newsletter
+🔸 Subscribe to our newsletter
 
 <br>
 
-🔸 Use Multinear
+🔸 Use Multinear <img src="./assets/logo.svg" style="width: 1.5em; height: 1.5em; display: inline-block; margin-top: -0.2em; margin-left: 0.2em;"></img>
 
 <img src="./assets/multinear.png" style="width: 20em; display: block; margin-left: auto; margin-right: auto;"></img>
 
